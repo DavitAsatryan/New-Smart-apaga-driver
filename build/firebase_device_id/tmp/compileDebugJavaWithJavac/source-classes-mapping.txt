@@ -1,0 +1,2 @@
+se/greycastle/firebase_device_id/BuildConfig.java
+ se.greycastle.firebase_device_id.BuildConfig
