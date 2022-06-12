@@ -34,17 +34,44 @@ class Profile extends StatefulWidget {
 
 List<ProfileModel> listProfile = [];
 // List<ProfilePhoneNumberModel> listNumbers = [];
-final _imageController = TextEditingController();
 final _fullNameController = TextEditingController();
-final _phoneNumberController = TextEditingController();
-final _phoneNumberTwoController = TextEditingController();
 final _passwordController = TextEditingController();
 final _passwordTwoController = TextEditingController();
 final _passwordthreeController = TextEditingController();
-double valueScroll = 0;
 
 class _ProfileState extends State<Profile> {
-  //atic bool isLOggedIN = LoginFormState.isLoggedIn;
+  var maskFormatter = MaskTextInputFormatter(
+      mask: '##-###-###',
+      filter: {"#": RegExp(r'[0-9]')},
+      type: MaskAutoCompletionType.lazy);
+  bool passwordVisibility = false;
+  bool passwordVisibilityTwo = false;
+  bool passwordVisibilityThree = false;
+  bool doublePassword = false;
+  bool isCheckedOne = false;
+  bool isCheckedTwo = false;
+  bool isCheckedThree = false;
+  bool isCheckedFour = false;
+  bool sendBoolData = false;
+  final formKey = GlobalKey<FormState>();
+  final passKey = GlobalKey<FormState>();
+  final _phoneNumberController = TextEditingController();
+  final carOneNumberController = TextEditingController();
+  final carOneNameController = TextEditingController();
+  final carOneColorController = TextEditingController();
+  final scrollCOntroller = ScrollController();
+
+  int _valueRadio = 0;
+  int counterBorder = 0;
+  double valueScroll = 0;
+  String radioOneText = "";
+  static dynamic imageTemprory;
+
+  void scrollUp(double value) {
+    scrollCOntroller.animateTo(value,
+        duration: const Duration(milliseconds: 500), curve: Curves.easeIn);
+  }
+
   @override
   void initState() {
     var profileEvent = BlocProvider.of<ProfileGetDataBloc>(context);
@@ -53,19 +80,50 @@ class _ProfileState extends State<Profile> {
     super.initState();
   }
 
-  Future deleteProfile() async {
-    String deleteAPI = "";
-    var response = await http.delete(
-      Uri.parse(deleteAPI),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-    );
-    var data = jsonDecode(response.body);
-    if (response.statusCode == 200) {
-      // print();
-    }
-  }
+  // onProfileEditButtonPressed(
+  //   dynamic avatar,
+  //   String fullName,
+  //   String phoneNumber,
+  //   String title,
+  //   String color,
+  //   String volume,
+  // ) {
+  //   if (formKey.currentState!.validate()) {
+  //     print("object");
+  //     BlocProvider.of<ProfileEditBloc>(context).add(ProfileEditButtonPressed(
+  //         imagePath: avatar,
+  //         firstname: fullName,
+  //         lastname: fullName,
+  //         phoneOne: phoneNumber,
+
+  //         // color: color,
+  //         // title: title,
+  //         // volume: volume
+  //         ));
+  //     print(
+  //         "ProfilEditMetod avatar: $avatar, fullName: $fullName, number: $phoneNumber, color: $color, title: $title, volume:  $volume");
+  //   } else {
+  //     if (_fullNameController.value.composing.isValid ||
+  //         _phoneNumberController.value.composing.isValid) {
+  //     } else {
+  //       setState(() {
+  //         valueScroll = 1200;
+  //       });
+  //     }
+
+  //     if (carOneNumberController.value.composing.isValid ||
+  //         carOneNameController.value.composing.isValid ||
+  //         carOneColorController.value.composing.isValid) {
+  //     } else {
+  //       setState(() {
+  //         valueScroll = 350;
+  //       });
+  //     }
+
+  //     scrollUp(valueScroll);
+  //     return null;
+  //   }
+  // }
 
   Future<void> logout() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -87,82 +145,17 @@ class _ProfileState extends State<Profile> {
     //print("$isLOggedIN logout");
   }
 
-  final _phoneNumberController = TextEditingController();
-
-  var maskFormatter = MaskTextInputFormatter(
-      mask: '##-###-###',
-      filter: {"#": RegExp(r'[0-9]')},
-      type: MaskAutoCompletionType.lazy);
-  bool passwordVisibility = false;
-  bool passwordVisibilityTwo = false;
-  bool passwordVisibilityThree = false;
-  bool hidePhoneNumber = false;
-  bool hideCarData = true;
-  bool doublePassword = false;
-  bool hide = false;
-  final formKey = GlobalKey<FormState>();
-  final passKey = GlobalKey<FormState>();
-  final carOneNumberController = TextEditingController();
-  final carOneNameController = TextEditingController();
-  final carOneColorController = TextEditingController();
-  final scrollCOntroller = ScrollController();
-  bool isCheckedOne = false;
-  bool isCheckedTwo = false;
-  bool isCheckedThree = false;
-  bool isCheckedFour = false;
-  int counterBorder = 0;
-  bool sendBoolData = false;
-  Pattern pattern = r'^[0-9]{2}[A-Z]{2}[0-9]{3}';
-  int _valueRadio = 0;
-  String radioOneText = "";
-  static dynamic imageTemprory;
-  static dynamic sendPath = "";
-  void scrollUp(double value) {
-    scrollCOntroller.animateTo(value,
-        duration: const Duration(milliseconds: 500), curve: Curves.easeIn);
-  }
-
-  late String _base64 = "";
-  onProfileEditButtonPressed(
-    dynamic avatar,
-    String fullName,
-    String phoneNumber,
-    String title,
-    String color,
-    String volume,
-  ) {
-    if (formKey.currentState!.validate()) {
-      print("object");
-      BlocProvider.of<ProfileEditBloc>(context).add(ProfileEditButtonPressed(
-          imagePath: avatar,
-          firstname: fullName,
-          lastname: fullName,
-          phoneOne: phoneNumber,
-          color: color,
-          title: title,
-          volume: volume));
-      print(
-          "ProfilEditMetod avatar: $avatar, fullName: $fullName, number: $phoneNumber, color: $color, title: $title, volume:  $volume");
-    } else {
-      if (_fullNameController.value.composing.isValid ||
-          _phoneNumberController.value.composing.isValid) {
-      } else {
-        setState(() {
-          valueScroll = 1200;
-        });
-      }
-
-      if (carOneNumberController.value.composing.isValid ||
-          carOneNameController.value.composing.isValid ||
-          carOneColorController.value.composing.isValid) {
-      } else {
-        setState(() {
-          valueScroll = 350;
-        });
-      }
-
-      scrollUp(valueScroll);
-      return null;
+  Future deleteProfile() async {
+    String deleteAPI = "";
+    var response = await http.delete(
+      Uri.parse(deleteAPI),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
+    var data = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      // print();
     }
   }
 
@@ -225,7 +218,7 @@ class _ProfileState extends State<Profile> {
           : null,
       "fullName": _fullNameController.text,
       "lastname": _fullNameController.text,
-      "phoneNumber": number,
+      "phone_number": number,
       "title": carOneNameController.text,
       "color": carOneColorController.text,
       "volume": radioOneText,
@@ -239,13 +232,17 @@ class _ProfileState extends State<Profile> {
               headers: {'auth-token': '$token'}));
       print(response.statusCode);
       if (response.statusCode == 200) {
-        ShowDialogs().show(context);
+        ShowDialogs().show(context, false);
       }
     } catch (e) {
       String exeption = "Սխալ";
-      print(UserRepository.exeptionText);
-      if (UserRepository.exeptionText ==
-          "{message: user with phoneNumber: 374${_phoneNumberController.text} already registered }") {
+      print(UserRepository
+          .exeptionText); //{message: user with phoneNumber: 374${_phoneNumberController.text} already registered }
+      if (UserRepository.exeptionText == "{message: Invalid password}" ||
+          UserRepository.exeptionText ==
+              "{message: User phone number is not exist in db}" ||
+          UserRepository.exeptionText ==
+              "user with phoneNumber: $number already registered ") {
         exeption = "Հեռախոսահամարն արդեն գրանցված է խնդրում ենք փոխել այն";
       }
 
@@ -740,7 +737,7 @@ class _ProfileState extends State<Profile> {
         }
         if (state is PasswordChangeInitial) {
           FocusManager.instance.primaryFocus?.unfocus();
-          ShowDialogs().show(context);
+          ShowDialogs().show(context, false);
         }
       },
       child: Scaffold(
@@ -847,21 +844,23 @@ class _ProfileState extends State<Profile> {
                   state.profileDatat[0].phoneNumber!.substring(3);
 
               carOneNumberController.text =
-                  state.profileDatat[0].license_plate!;
-              carOneNameController.text = state.profileDatat[0].title!;
-              carOneColorController.text = state.profileDatat[0].color!;
-              if (state.profileDatat[0].volume! == "100") {
+                  state.profileDatat[0].vehicles![0].license_plate!;
+              carOneNameController.text =
+                  state.profileDatat[0].vehicles![0].title!;
+              carOneColorController.text =
+                  state.profileDatat[0].vehicles![0].color!;
+              if (state.profileDatat[0].vehicles![0].volume! == "100") {
                 _valueRadio = 1;
-                radioOneText = state.profileDatat[0].volume!;
-              } else if (state.profileDatat[0].volume! == "300") {
+                radioOneText = state.profileDatat[0].vehicles![0].volume!;
+              } else if (state.profileDatat[0].vehicles![0].volume! == "300") {
                 _valueRadio = 2;
-                radioOneText = state.profileDatat[0].volume!;
-              } else if (state.profileDatat[0].volume! == "500") {
+                radioOneText = state.profileDatat[0].vehicles![0].volume!;
+              } else if (state.profileDatat[0].vehicles![0].volume! == "500") {
                 _valueRadio = 3;
-                radioOneText = state.profileDatat[0].volume!;
-              } else if (state.profileDatat[0].volume! == "800") {
+                radioOneText = state.profileDatat[0].vehicles![0].volume!;
+              } else if (state.profileDatat[0].vehicles![0].volume! == "800") {
                 _valueRadio = 4;
-                radioOneText = state.profileDatat[0].volume!;
+                radioOneText = state.profileDatat[0].vehicles![0].volume!;
               }
 
               return SingleChildScrollView(
@@ -2146,8 +2145,7 @@ class _ProfileState extends State<Profile> {
                                                         FocusManager.instance
                                                             .primaryFocus
                                                             ?.unfocus();
-                                                        String number =
-                                                            "374${_phoneNumberController.text}";
+
                                                         //   onProfileEditButtonPressed(
                                                         //       imageSend == null
                                                         //           ? _imageController
@@ -2162,7 +2160,44 @@ class _ProfileState extends State<Profile> {
                                                         //           .text,
                                                         //       radioOneText);
 
-                                                        uploadImage(this.image);
+                                                        if (formKey
+                                                            .currentState!
+                                                            .validate()) {
+                                                          uploadImage(
+                                                              this.image);
+                                                        } else {
+                                                          if (_fullNameController
+                                                                  .value
+                                                                  .composing
+                                                                  .isValid ||
+                                                              _phoneNumberController
+                                                                  .value
+                                                                  .composing
+                                                                  .isValid) {
+                                                          } else {
+                                                            setState(() {
+                                                              valueScroll = 580;
+                                                            });
+                                                          }
+
+                                                          if (carOneNumberController.value.composing.isValid ||
+                                                              carOneNameController
+                                                                  .value
+                                                                  .composing
+                                                                  .isValid ||
+                                                              carOneColorController
+                                                                  .value
+                                                                  .composing
+                                                                  .isValid) {
+                                                          } else {
+                                                            setState(() {
+                                                              valueScroll = 350;
+                                                            });
+                                                          }
+
+                                                          scrollUp(valueScroll);
+                                                          return null;
+                                                        }
                                                       },
                                                       child: const Text(
                                                           'Հաստատել',

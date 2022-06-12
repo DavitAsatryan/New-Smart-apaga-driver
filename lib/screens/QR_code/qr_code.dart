@@ -66,7 +66,7 @@ class _QrCodeState extends State<QrCode> {
     BlocProvider.of<QrSendBloc>(context).add(
       QrSendButtonPressed(qrSendCode: barCode, id: id),
     );
-    print(" ___________________------------------------- $barCode");
+    print(" ___________________------------------------- $barCode $id");
   }
 
   @override
@@ -83,7 +83,7 @@ class _QrCodeState extends State<QrCode> {
         if (state is QrSendFailure) {
           print(state.error);
           counter--;
-          ShowDialogs().show(context);
+          ShowDialogs().showFailure(context);
         }
         if (state is QrSendInitial) {
           for (var i = 0; i < resultList.length; i++) {
@@ -97,7 +97,7 @@ class _QrCodeState extends State<QrCode> {
           print(resultList.length);
 
           print("QR ok");
-          ShowDialogs().show(context);
+          ShowDialogs().show(context, false);
         }
       },
       child: BlocBuilder<QrSendBloc, QrSendState>(

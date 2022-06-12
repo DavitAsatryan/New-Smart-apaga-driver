@@ -30,11 +30,11 @@ class _RegisterFormState extends State<RegisterForm> {
       mask: '##-AA-###',
       filter: {"A": RegExp(r'[A-Z]'), "#": RegExp(r'[0-9]')},
       type: MaskAutoCompletionType.lazy);
-  final _fullNameController = TextEditingController(text: "Davit Asatryan");
+  final _fullNameController = TextEditingController();
   final _phoneNumberController = TextEditingController();
   final _carNumberController = TextEditingController();
-  final _carNameController = TextEditingController(text: "Nissan");
-  final _carColorController = TextEditingController(text: "Sev");
+  final _carNameController = TextEditingController();
+  final _carColorController = TextEditingController();
   final _passwordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   bool sendBoolData = false;
@@ -617,7 +617,7 @@ class _RegisterFormState extends State<RegisterForm> {
                                           alignment:
                                               const AlignmentDirectional(0, 0),
                                           child: TextFormField(
-                                            maxLengthEnforced: true,
+                                            // maxLengthEnforced: true,
                                             inputFormatters: [
                                               LengthLimitingTextInputFormatter(
                                                   20)
@@ -1185,7 +1185,7 @@ class _RegisterFormState extends State<RegisterForm> {
                                               LengthLimitingTextInputFormatter(
                                                   20)
                                             ],
-                                            maxLengthEnforced: true,
+                                           // maxLengthEnforced: true,
                                             validator: (value) {
                                               Pattern password =
                                                   r'[A-Z,a-z,0-9(]{6}';

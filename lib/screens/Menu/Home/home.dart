@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:new_apaga/Cubit/Internet/cubit/internet_cubit.dart';
 import 'package:new_apaga/Enum/internetEnum.dart';
 import 'package:new_apaga/bloc/Notification/bloc/notification_bloc.dart';
+import 'package:new_apaga/bloc/QRCounterAndReason/bloc/qr_counter_reason_bloc.dart';
 import 'package:new_apaga/bloc/QrCodeSend/bloc/qr_send_bloc.dart';
 import 'package:new_apaga/bloc/SeeMorde/bloc/see_more_bloc.dart';
 import 'package:new_apaga/screens/Menu/scrolltohide.dart';
@@ -212,12 +213,56 @@ class HomeState extends State<Home> {
                   if (state is ConfirmLoading) {
                     print("confirm sucsses");
 
-                    ShowDialogs().show(context);
+                    showDialog(
+                        context: cont,
+                        builder: (context) {
+                          return AlertDialog(
+                              actions: [
+                                ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    primary:
+                                        const Color.fromRGBO(159, 205, 79, 1),
+                                    elevation: 0,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0)),
+                                    minimumSize:
+                                        const Size(100, 36), //////// HERE
+                                  ),
+                                  onPressed: () {
+                                    blocOrder = BlocProvider.of<ListBloc>(cont);
+                                    blocOrder.add(FetchEvent());
+
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: const Text('Լավ',
+                                      style: TextStyle(
+                                        fontFamily: 'Poppins',
+                                        color: Color.fromRGBO(255, 255, 255, 1),
+                                        fontSize: 16,
+                                      )),
+                                ),
+                              ],
+                              shape: RoundedRectangleBorder(
+                                side: const BorderSide(
+                                    color: Color.fromARGB(255, 144, 138, 137)),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              content: StatefulBuilder(
+                                builder: (context, setState) => Container(
+                                  child: const Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 0, 0, 1),
+                                    child: Text("Գործընթացը հաջողվեց"),
+                                  ),
+                                ),
+                              ));
+                        });
                   }
                   if (state is ConfirmFailure) {
                     print("confirm felure");
 
-                    ShowDialogs().show(context);
+                    ShowDialogs().showFailure(context);
                   }
                 },
                 // child: BlocListener<SeeMoreBloc, SeeMoreState>(
@@ -557,7 +602,12 @@ class HomeState extends State<Home> {
                                     BlocProvider<SeeMoreBloc>(
                                         create: (context) => SeeMoreBloc(
                                             authenticationBloc: auth,
-                                            repository: userRepository))
+                                            repository: userRepository)),
+                                    BlocProvider<QrCounterReasonBloc>(
+                                        create: (context) =>
+                                            QrCounterReasonBloc(
+                                                authenticationBloc: auth,
+                                                userRepository: userRepository))
                                   ],
                                   child: AboutMore(
                                     id: order[index].pickup_id,

@@ -17,6 +17,24 @@ class UserRepository {
   static var api_url = baseURL + '/api/customer';
   static var orderAPI = 'https://jsonplaceholder.typicode.com/posts';
 
+  Future<void> refreshToken(String refresh) async {
+    dynamic token = await FlutterSession().get('token');
+    Map<String, String> mapData = {"refreshToken": refresh};
+    var respose = await http.post(
+      Uri.parse(baseURL + '/refresh'),
+      headers: <String, String>{
+        'content-type': "application/json; charset=utf-8",
+      },
+      body: jsonEncode(mapData),
+    );
+    var body = jsonDecode(respose.body);
+    if (respose.statusCode == 200) {
+      var refresh = body['accessToken'];
+
+      await FlutterSession().set('token', refresh);
+    }
+  }
+
   Future<bool> register(UserRegister userRegister) async {
     var respose = await http.post(
       Uri.parse(baseURL + '/signup'),
@@ -51,11 +69,14 @@ class UserRepository {
     );
     var body = jsonDecode(response.body);
     var data = body['token'];
+    var refresh = body['refreshToken'];
+
     print(data);
     // print("responce body  ${response.body}");
     if (response.statusCode == 200) {
       print("Login statusCode 200");
       await FlutterSession().set('token', data);
+      await FlutterSession().set('refreshToken', refresh);
       return true;
       // dynamic token = data['accessToken'];
     } else {
@@ -126,6 +147,10 @@ class UserRepository {
     );
     if (response.statusCode == 200) {
       print("Confirm statusCode 200");
+    } else if (response.statusCode == 401) {
+      dynamic rToken = await FlutterSession().get('refreshToken');
+      await refreshToken(rToken);
+      confirm(id);
     } else {
       throw Exception(json.decode(response.body));
     }
@@ -147,12 +172,15 @@ class UserRepository {
     if (response.statusCode == 200) {
       print(response);
       return true;
+    } else if (response.statusCode == 401) {
+      dynamic rToken = await FlutterSession().get('refreshToken');
+      await refreshToken(rToken);
+      profileSend(profileSendText);
     }
     //exeptionText = body.toString();
     // throw Exception(json.decode(response.body));
   }
 
-  static var _base64 = "";
   Future<List<ProfileModel>> profileDataGet() async {
     List<ProfileModel> listModel = [];
     dynamic token = await FlutterSession().get('token');
@@ -166,12 +194,18 @@ class UserRepository {
     dynamic body = jsonDecode(response.body);
     if (response.statusCode == 200) {
       print("PasswordChange statusCode 200");
-      (body['personalData'] as List).forEach((element) {
+
+      for (var element in (body['personalData'] as List)) {
         ProfileModel model = ProfileModel.fromJson(element);
         listModel.add(model);
-      });
+        print(listModel);
+      }
 
       return listModel;
+    } else if (response.statusCode == 401) {
+      dynamic rToken = await FlutterSession().get('refreshToken');
+      await refreshToken(rToken);
+      return profileDataGet();
     } else {
       throw Exception(json.decode(response.body));
     }
@@ -191,6 +225,10 @@ class UserRepository {
       print("PasswordChange statusCode 200");
 
       return true;
+    } else if (response.statusCode == 401) {
+      dynamic rToken = await FlutterSession().get('refreshToken');
+      await refreshToken(rToken);
+      return passwordChange(passwordChangeText);
     } else {
       throw Exception(json.decode(response.body));
     }
@@ -212,6 +250,10 @@ class UserRepository {
     if (response.statusCode == 200) {
       print("counterAndResason statusCode 200");
       return true;
+    } else if (response.statusCode == 401) {
+      dynamic rToken = await FlutterSession().get('refreshToken');
+      await refreshToken(rToken);
+      return qrCounterAndReasonModel(counterAndResasonText);
     } else {
       throw Exception(json.decode(response.body));
     }
@@ -231,6 +273,10 @@ class UserRepository {
     if (response.statusCode == 200) {
       print("QrCodeSend statusCode 200");
       return true;
+    } else if (response.statusCode == 401) {
+      dynamic rToken = await FlutterSession().get('refreshToken');
+      await refreshToken(rToken);
+      return qrCodeSend(qrCodeSendModel);
     } else {
       throw Exception(json.decode(response.body));
     }
@@ -254,6 +300,10 @@ class UserRepository {
       print("filtrdSendData statusCode 200");
       String token = data['access_token'];
       await FlutterSession().set('token', token);
+    } else if (response.statusCode == 401) {
+      dynamic rToken = await FlutterSession().get('refreshToken');
+      await refreshToken(rToken);
+      return filtrdSendData(unassignedText, api_url, urlHost);
     } else {
       throw Exception(json.decode(response.body));
     }
@@ -274,11 +324,15 @@ class UserRepository {
     dynamic body = jsonDecode(response.body);
     if (response.statusCode == 200) {
       print("Notification statusCode____200");
-      (body["allFoundNotifications"] as List).forEach((element) {
+      for (var element in (body["allFoundNotifications"] as List)) {
         NotificationModel notificationModel =
             NotificationModel.fromJson(element);
         notificationList.add(notificationModel);
-      });
+      }
+    } else if (response.statusCode == 401) {
+      dynamic rToken = await FlutterSession().get('refreshToken');
+      await refreshToken(rToken);
+      return notification();
     } else {
       throw Exception(json.decode(response.body));
     }
@@ -286,22 +340,24 @@ class UserRepository {
     return notificationList;
   }
 
-  Future sendSections(List<String> names) async {
-    print("sections Names $names");
-    var response = await http.post(
-      Uri.parse('https://jsonplaceholder.typicode.com/albums/$names'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-    );
-    var body = jsonDecode(response.body);
-    if (response.statusCode == 200) {
-      print(" statusCode____200");
-      var data = body['data'];
-      String token = data['access_token'];
-      await FlutterSession().set('token', token);
-    }
-  }
+  // Future sendSections(List<String> names) async {
+  //   dynamic rToken = await FlutterSession().get('refreshToken');
+  //   refreshToken(rToken);
+  //   print("sections Names $names");
+  //   var response = await http.post(
+  //     Uri.parse('https://jsonplaceholder.typicode.com/albums/$names'),
+  //     headers: <String, String>{
+  //       'Content-Type': 'application/json; charset=UTF-8',
+  //     },
+  //   );
+  //   var body = jsonDecode(response.body);
+  //   if (response.statusCode == 200) {
+  //     print(" statusCode____200");
+  //     var data = body['data'];
+  //     String token = data['access_token'];
+  //     await FlutterSession().set('token', token);
+  //   }
+  // }
 
   Future<bool> deleteItem(List<int> id) async {
     dynamic token = await FlutterSession().get('token');
@@ -320,6 +376,10 @@ class UserRepository {
     if (response.statusCode == 200) {
       print("notiDelete statusCode____200");
       return true;
+    } else if (response.statusCode == 401) {
+      dynamic rToken = await FlutterSession().get('refreshToken');
+      await refreshToken(rToken);
+      return deleteItem(id);
     }
     return false;
   }
@@ -340,23 +400,29 @@ class UserRepository {
         body: jsonEncode(mapData),
       );
       dynamic body = jsonDecode(respose.body);
+
       if (respose.statusCode == 200 && index == 1) {
         print("index $index");
         print("Order statusCode____200");
-        (body['pickups'] as List).forEach((element) {
+        for (var element in (body['pickups'] as List)) {
           OrderModel orderModel = OrderModel.fromJson(element);
           orderList.add(orderModel);
-        });
+        }
       }
       if (respose.statusCode == 200 && index == 2) {
         print("index $index");
         print("Order statusCode____200");
-        (body['dailyPickups'] as List).forEach((element) {
+        for (var element in (body['dailyPickups'] as List)) {
           OrderModel orderModel = OrderModel.fromJson(element);
           orderList.add(orderModel);
-        });
+        }
+      } else if (respose.statusCode == 401) {
+        dynamic rToken = await FlutterSession().get('refreshToken');
+        await refreshToken(rToken);
+        return pickups(section, index);
       }
     }
+
     return orderList;
   }
 
@@ -409,10 +475,14 @@ class UserRepository {
       dynamic body = jsonDecode(respose.body);
       if (respose.statusCode == 200) {
         print("myOrders statusCode____200");
-        (body['pickups'] as List).forEach((element) {
+        for (var element in (body['pickups'] as List)) {
           OrderModel orderModel = OrderModel.fromJson(element);
           orderList.add(orderModel);
-        });
+        }
+      } else if (respose.statusCode == 401) {
+        dynamic rToken = await FlutterSession().get('refreshToken');
+        await refreshToken(rToken);
+        return orderMassage(sections, index);
       }
     }
     if (index == 4) {
@@ -430,10 +500,14 @@ class UserRepository {
       dynamic body = jsonDecode(respose.body);
       if (respose.statusCode == 200) {
         print("myOrders filtr statusCode____200");
-        (body['myDailyPickups'] as List).forEach((element) {
+        for (var element in (body['myDailyPickups'] as List)) {
           OrderModel orderModel = OrderModel.fromJson(element);
           orderList.add(orderModel);
-        });
+        }
+      } else if (respose.statusCode == 401) {
+        dynamic rToken = await FlutterSession().get('refreshToken');
+        await refreshToken(rToken);
+        return orderMassage(sections, index);
       }
     }
     return orderList;
@@ -453,10 +527,14 @@ class UserRepository {
     );
     dynamic body = jsonDecode(respose.body);
     if (respose.statusCode == 200) {
-      (body['myPickups'] as List).forEach((element) {
+      for (var element in (body['pickups'] as List)) {
         OrderModel orderGetModel = OrderModel.fromJson(element);
         orderList.add(orderGetModel);
-      });
+      }
+    } else if (respose.statusCode == 401) {
+      dynamic rToken = await FlutterSession().get('refreshToken');
+      await refreshToken(rToken);
+      return ordersListGet(status);
     }
     return orderList;
   }
@@ -476,11 +554,16 @@ class UserRepository {
     );
     dynamic body = jsonDecode(respose.body);
     if (respose.statusCode == 200) {
-      (body['pickupSeeMore'] as List).forEach((element) {
-        OrderModel orderModelSeeMore = OrderModel.fromJsonSeeMore(element);
+      for (var element in (body['pickups'] as List)) {
+        OrderModel orderModelSeeMore = OrderModel.seeMoreDaily(element);
         orderList.add(orderModelSeeMore);
-      });
+      }
+    } else if (respose.statusCode == 401) {
+      dynamic rToken = await FlutterSession().get('refreshToken');
+      await refreshToken(rToken);
+      return seeMoreData(id);
     }
+
     return orderList;
   }
 }
@@ -494,7 +577,7 @@ class UserLogin {
       required this.password,
       required this.firebase_token});
   Map<String, dynamic> toDatabaseJson() => {
-        "phoneNumber": this.phoneNumber,
+        "phone_number": this.phoneNumber,
         "password": this.password,
         "firebase_token": this.firebase_token,
       };
@@ -504,7 +587,7 @@ class PhoneNumberModel {
   String phoneNumber;
   PhoneNumberModel({required this.phoneNumber});
   Map<String, dynamic> toDatabaseJson() => {
-        "phoneNumber": this.phoneNumber,
+        "phone_number": this.phoneNumber,
       };
 }
 
@@ -523,7 +606,7 @@ class PasswordNew {
   String newPassword;
   PasswordNew({required this.phoneNumber, required this.newPassword});
   Map<String, dynamic> toDatabaseJson() => {
-        "phoneNumber": this.phoneNumber,
+        "phone_number": this.phoneNumber,
         "newPassword": this.newPassword,
       };
 }
@@ -553,7 +636,7 @@ class QrCounterAndReasonModel {
 
 class QrCodeSendModel {
   String qrCode;
-  int id;
+  String id;
   QrCodeSendModel({required this.qrCode, required this.id});
   Map<String, dynamic> toDatabaseJson() => {
         "qr_code": this.qrCode,
@@ -591,7 +674,7 @@ class UserRegister {
   });
   Map<String, dynamic> toDatabaseJson() => {
         "fullName": this.fullName,
-        "phoneNumber": this.phoneNumber,
+        "phone_number": this.phoneNumber,
         "carNumber": this.carNumber,
         "carName": this.carName,
         "carColor": this.carColor,
@@ -615,43 +698,70 @@ class PasswordChange {
 }
 
 class ProfileModel {
+  int? id;
   dynamic avatar;
   String? firstname;
   String? lastname;
   String? phoneNumber;
-  String? license_plate;
-  String? title;
-  String? color;
-  String? volume;
+  int? idD;
+  int? userId;
+  List<Vehicles>? vehicles;
+
   ProfileModel({
+    this.id,
     required this.avatar,
     required this.firstname,
     required this.lastname,
     required this.phoneNumber,
-    this.license_plate,
-    required this.title,
-    required this.color,
-    required this.volume,
+    this.userId,
+    this.idD,
+    required this.vehicles,
   });
+
   ProfileModel.fromJson(Map<dynamic, dynamic> json) {
+    id = json['id'];
     avatar = json['avatar'];
     firstname = json['firstname'];
     lastname = json['lastname'];
-    phoneNumber = json['phoneNumber'];
+    phoneNumber = json['phone_number'];
+    idD = json['driver']['id'];
+    userId = json['driver']['user_id'];
+    vehicles = [];
+    (json['driver']['vehicles'] as List).forEach((element) {
+      print(element);
+
+      vehicles!.add(Vehicles.fromJson(element));
+    });
+    // for (var element in (json['driver']['vehicles'] as List)) {
+
+    // }
+  }
+  Map<String, dynamic> toDatabaseJson() => {
+        "avatar": this.avatar,
+        "firstname": this.firstname,
+        "lastname": this.lastname,
+        "phone_number": this.phoneNumber,
+        // "title": this.title,
+        // "color": this.color,
+        // "volume": this.volume,
+      };
+}
+
+class Vehicles {
+  int? id;
+  int? driver_id;
+  String? license_plate;
+  String? title;
+  String? color;
+  String? volume;
+  Vehicles.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    driver_id = json['driver_id'];
     license_plate = json['license_plate'];
     title = json['title'];
     color = json['color'];
     volume = json['volume'];
   }
-  Map<String, dynamic> toDatabaseJson() => {
-        "avatar": this.avatar,
-        "fullName": this.firstname,
-        "lastname": this.lastname,
-        "phoneNumber": this.phoneNumber,
-        "title": this.title,
-        "color": this.color,
-        "volume": this.volume,
-      };
 }
 
 class OrderModel {
@@ -662,7 +772,10 @@ class OrderModel {
   String? firstname;
   String? lastname;
   String? phoneNumber;
-  String? customer_address;
+  String? customerAddress;
+  dynamic customer_address;
+  int? customer_id;
+  int? address_id;
   String? comment_customer;
   String? status;
   int? quantity;
@@ -691,37 +804,45 @@ class OrderModel {
       required this.status,
       required this.waste_type});
   OrderModel.fromJson(Map<dynamic, dynamic> json) {
-    pickup_id = json['pickup_id'];
+    pickup_id = json['id'];
+    status = json['status'];
     order_start_time = json['order_start_time'];
     order_time_end = json['order_time_end'];
-    customer_address = json['customer_address'];
-    status = json['status'];
+    customer_id = json['customer_id'];
+    address_id =
+        json['address_id']; //Address.fromJson(json['customer_address'])
+    customer_address = json['address']['customer_address'];
+    print("customer_address  $customer_address");
+    if (json['Pickup_bags'] != null) {
+      waste_type = [];
+      for (var element in (json['Pickup_bags'] as List)) {
+        waste_type!.add(element);
+      }
+    }
     quantity = json['quantity'];
     price = json['price'];
-    if (json['waste_type'] != null) {
-      waste_type = [];
-      (json['waste_type'] as List).forEach((element) {
-        waste_type!.add(element);
-      });
-    }
   }
-  OrderModel.fromJsonSeeMore(Map<dynamic, dynamic> json) {
+  OrderModel.seeMoreDaily(Map<dynamic, dynamic> json) {
+    status = json['status'];
     order_date = json['order_date'];
     order_start_time = json['order_start_time'];
     order_time_end = json['order_time_end'];
+    customer_id = json['customer_id'];
+    address_id = json['address_id'];
+    comment_customer = json['comment_customer'];
+    customer_address = json['address']['customer_address'];
+    print(customer_address);
+    if (json['Pickup_bags'] != null) {
+      waste_type = [];
+      for (var element in (json['Pickup_bags'] as List)) {
+        waste_type!.add(element);
+      }
+    }
     firstname = json['firstname'];
     lastname = json['lastname'];
-    phoneNumber = json['phoneNumber'];
-    customer_address = json['customer_address'];
-    comment_customer = json['comment_customer'];
+    phoneNumber = json['phone_number'];
     quantity = json['quantity'];
     price = json['price'];
-    if (json['waste_type'] != null) {
-      waste_type = [];
-      (json['waste_type'] as List).forEach((element) {
-        waste_type!.add(element);
-      });
-    }
     // Map<dynamic, dynamic> toDatabaseJson() {
     //   final Map<dynamic, dynamic> data = new Map<dynamic, dynamic>();
     //   data['userId'] = this.userId;
@@ -730,6 +851,46 @@ class OrderModel {
     //   data['body'] = this.body;
     //   return data;
     // }
+  }
+  // OrderModel.fromJsonSeeMore(Map<dynamic, dynamic> json) {
+  //   pickup_id = json['id'];
+  //   status = json['status'];
+  //   order_date = json['order_date'];
+  //   order_start_time = json['order_start_time'];
+  //   order_time_end = json['order_time_end'];
+  //   customer_id = json['customer_id'];
+  //   address_id = json['address_id'];
+  //   comment_customer = json['comment_customer'];
+  //   customer_address = Address.fromJson(json['address']);
+  //   if (json['Pickup_bags'] != null) {
+  //     waste_type = [];
+  //     (json['Pickup_bags'] as List).forEach((element) {
+  //       waste_type!.add(element);
+  //     });
+  //   }
+  //   firstname = json['firstname'];
+  //   lastname = json['lastname'];
+  //   phoneNumber = json['phone_number'];
+  //   quantity = json['quantity'];
+  //   price = json['price'];
+  //   // Map<dynamic, dynamic> toDatabaseJson() {
+  //   //   final Map<dynamic, dynamic> data = new Map<dynamic, dynamic>();
+  //   //   data['userId'] = this.userId;
+  //   //   data['id'] = this.id;
+  //   //   data['title'] = this.title;
+  //   //   data['body'] = this.body;
+  //   //   return data;
+  //   // }
+  // }
+}
+
+class Address {
+  String? customer_address;
+  Address({required this.customer_address});
+  Address.fromJson(Map<String, dynamic> json) {
+    customer_address:
+    json["customer_address"];
+    print(json["customer_address"]);
   }
 }
 
@@ -773,9 +934,9 @@ class OrderGettingModel {
     status = json['status'];
     if (json['waste_type'] != null) {
       waste_type = [];
-      (json['waste_type'] as List).forEach((element) {
+      for (var element in (json['waste_type'] as List)) {
         waste_type!.add(element);
-      });
+      }
     }
   }
 }

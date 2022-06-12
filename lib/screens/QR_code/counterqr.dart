@@ -59,7 +59,7 @@ class _CounterQRState extends State<CounterQR> {
         body: BlocListener<QrCounterReasonBloc, QrCounterReasonState>(
           listener: (context, state) {
             if (state is QrCounterReasonFailure) {
-            ShowDialogs().show(context);
+            ShowDialogs().showFailure(context);
             }
             if (state is QrCounterReasonInitial) {
               Navigator.pushAndRemoveUntil(context, MaterialPageRoute(

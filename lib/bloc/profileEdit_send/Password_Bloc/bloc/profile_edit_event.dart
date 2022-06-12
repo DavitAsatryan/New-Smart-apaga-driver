@@ -7,26 +7,29 @@ abstract class ProfileEditEvent extends Equatable {
 }
 
 class ProfileEditButtonPressed extends ProfileEditEvent {
+  int? id;
   dynamic imagePath;
   final String? firstname;
   final String? lastname;
   final String? phoneOne;
-  final String? title;
-  final String? color;
-  final String? volume;
+  final int? idD;
+  final int? userId;
+  final List<Vehicles>? vehicles;
+
   ProfileEditButtonPressed({
+    required this.id,
     required this.imagePath,
     required this.firstname,
     required this.lastname,
     required this.phoneOne,
-    required this.title,
-    required this.color,
-    required this.volume,
+    required this.idD,
+    required this.userId,
+    required this.vehicles,
   });
   @override
   List<Object> get props =>
-      [imagePath, firstname!, lastname!, phoneOne!, title!, color!, volume!];
+      [imagePath, firstname!, lastname!, phoneOne!, vehicles!];
   @override
   String toString() =>
-      'ProfileEditButtonPressed {imagePAth: $imagePath firstname: $firstname lastname: $lastname: phoneOne: $phoneOne title $title color $color volume $volume }';
+      'ProfileEditButtonPressed {id: $id: imagePAth: $imagePath firstname: $firstname lastname: $lastname: phoneOne: $phoneOne: idD: $idD: userId: $userId: vehicles: $vehicles }';
 }

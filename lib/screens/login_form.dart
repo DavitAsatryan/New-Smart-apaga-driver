@@ -323,7 +323,8 @@ class LoginFormState extends State<LoginForm> {
                                                       LengthLimitingTextInputFormatter(
                                                           20)
                                                     ],
-                                                    maxLengthEnforced: true,
+                                                    
+                                                    //maxLengthEnforced: true,
                                                     validator: (value) {
                                                       Pattern password =
                                                           r'[A-Z,a-z,0-9(]{6}';

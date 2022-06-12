@@ -1,7 +1,7 @@
-com/dexterous/flutterlocalnotifications/models/NotificationChannelDetails.java
- com.dexterous.flutterlocalnotifications.models.NotificationChannelDetails
 com/dexterous/flutterlocalnotifications/NotificationStyle.java
  com.dexterous.flutterlocalnotifications.NotificationStyle
+com/dexterous/flutterlocalnotifications/models/NotificationChannelDetails.java
+ com.dexterous.flutterlocalnotifications.models.NotificationChannelDetails
 com/dexterous/flutterlocalnotifications/models/Time.java
  com.dexterous.flutterlocalnotifications.models.Time
 com/dexterous/flutterlocalnotifications/FlutterLocalNotificationsPlugin.java

@@ -1,26 +1,26 @@
 [
     {
-        "merged": "/home/dear/Desktop/flutter Apps/new_apaga/build/url_launcher/intermediates/res/merged/debug/layout/custom_dialog.xml",
-        "source": "/home/dear/.gradle/caches/transforms-2/files-2.1/af76990d3d6bef6e40e94314fb3bdfdb/core-1.1.0/res/layout/custom_dialog.xml"
+        "merged": "/home/dave/Flutter Apps/new_apaga/build/url_launcher/intermediates/merged_res/debug/layout/notification_template_icon_group.xml",
+        "source": "/home/dave/.gradle/caches/transforms-3/3d539e2cd8e3ed292a2d160790075033/transformed/core-1.6.0/res/layout/notification_template_icon_group.xml"
     },
     {
-        "merged": "/home/dear/Desktop/flutter Apps/new_apaga/build/url_launcher/intermediates/res/merged/debug/layout/notification_action.xml",
-        "source": "/home/dear/.gradle/caches/transforms-2/files-2.1/af76990d3d6bef6e40e94314fb3bdfdb/core-1.1.0/res/layout/notification_action.xml"
+        "merged": "/home/dave/Flutter Apps/new_apaga/build/url_launcher/intermediates/merged_res/debug/layout/custom_dialog.xml",
+        "source": "/home/dave/.gradle/caches/transforms-3/3d539e2cd8e3ed292a2d160790075033/transformed/core-1.6.0/res/layout/custom_dialog.xml"
     },
     {
-        "merged": "/home/dear/Desktop/flutter Apps/new_apaga/build/url_launcher/intermediates/res/merged/debug/layout/notification_action_tombstone.xml",
-        "source": "/home/dear/.gradle/caches/transforms-2/files-2.1/af76990d3d6bef6e40e94314fb3bdfdb/core-1.1.0/res/layout/notification_action_tombstone.xml"
+        "merged": "/home/dave/Flutter Apps/new_apaga/build/url_launcher/intermediates/merged_res/debug/layout/notification_template_part_chronometer.xml",
+        "source": "/home/dave/.gradle/caches/transforms-3/3d539e2cd8e3ed292a2d160790075033/transformed/core-1.6.0/res/layout/notification_template_part_chronometer.xml"
     },
     {
-        "merged": "/home/dear/Desktop/flutter Apps/new_apaga/build/url_launcher/intermediates/res/merged/debug/layout/notification_template_icon_group.xml",
-        "source": "/home/dear/.gradle/caches/transforms-2/files-2.1/af76990d3d6bef6e40e94314fb3bdfdb/core-1.1.0/res/layout/notification_template_icon_group.xml"
+        "merged": "/home/dave/Flutter Apps/new_apaga/build/url_launcher/intermediates/merged_res/debug/layout/notification_action_tombstone.xml",
+        "source": "/home/dave/.gradle/caches/transforms-3/3d539e2cd8e3ed292a2d160790075033/transformed/core-1.6.0/res/layout/notification_action_tombstone.xml"
     },
     {
-        "merged": "/home/dear/Desktop/flutter Apps/new_apaga/build/url_launcher/intermediates/res/merged/debug/layout/notification_template_part_time.xml",
-        "source": "/home/dear/.gradle/caches/transforms-2/files-2.1/af76990d3d6bef6e40e94314fb3bdfdb/core-1.1.0/res/layout/notification_template_part_time.xml"
+        "merged": "/home/dave/Flutter Apps/new_apaga/build/url_launcher/intermediates/merged_res/debug/layout/notification_template_part_time.xml",
+        "source": "/home/dave/.gradle/caches/transforms-3/3d539e2cd8e3ed292a2d160790075033/transformed/core-1.6.0/res/layout/notification_template_part_time.xml"
     },
     {
-        "merged": "/home/dear/Desktop/flutter Apps/new_apaga/build/url_launcher/intermediates/res/merged/debug/layout/notification_template_part_chronometer.xml",
-        "source": "/home/dear/.gradle/caches/transforms-2/files-2.1/af76990d3d6bef6e40e94314fb3bdfdb/core-1.1.0/res/layout/notification_template_part_chronometer.xml"
+        "merged": "/home/dave/Flutter Apps/new_apaga/build/url_launcher/intermediates/merged_res/debug/layout/notification_action.xml",
+        "source": "/home/dave/.gradle/caches/transforms-3/3d539e2cd8e3ed292a2d160790075033/transformed/core-1.6.0/res/layout/notification_action.xml"
     }
 ]

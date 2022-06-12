@@ -26,13 +26,15 @@ class ProfileEditBloc extends Bloc<ProfileEditEvent, ProfileEditState> {
         try {
           var token = await FlutterSession().get("token");
           final profileEdit = await userRepository.profileSend(ProfileModel(
-              avatar: event.imagePath,
-              firstname: event.firstname,
-              lastname: event.lastname,
-              phoneNumber: event.phoneOne,
-              title: event.title,
-              color: event.color,
-              volume: event.volume));
+            id: event.id,
+            avatar: event.imagePath,
+            firstname: event.firstname,
+            lastname: event.lastname,
+            phoneNumber: event.phoneOne,
+            idD: event.idD,
+            userId: event.userId,
+            vehicles: event.vehicles,
+          ));
           //authenticationBloc.add(LoggedIn(token: token));
           emit(ProfileEditLoading());
         } catch (error) {

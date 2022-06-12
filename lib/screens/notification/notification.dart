@@ -281,78 +281,78 @@ class _NotificationState extends State<NotificationNew> {
                                           ),
                                         ),
                                       ),
-                                      Row(
-                                        children: [
-                                          IconButton(
-                                            iconSize: 14,
-                                            padding: EdgeInsets.only(left: 100),
-                                            alignment: Alignment.centerRight,
-                                            onPressed: () {},
-                                            icon: SvgPicture.asset(
-                                                "assets/icon/see_more.svg"),
-                                          ),
-                                        ],
-                                      ),
+                                      // Row(
+                                      //   children: [
+                                      //     IconButton(
+                                      //       iconSize: 14,
+                                      //       padding: EdgeInsets.only(left: 100),
+                                      //       alignment: Alignment.centerRight,
+                                      //       onPressed: () {},
+                                      //       icon: SvgPicture.asset(
+                                      //           "assets/icon/see_more.svg"),
+                                      //     ),
+                                      //   ],
+                                      // ),
                                     ],
                                   ),
                                 ),
                               ),
                             ),
-                            Container(
-                                height: 46,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                        left: 16,
-                                        right: 14,
-                                      ),
-                                      child: Row(
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                const EdgeInsets.only(right: 6),
-                                            child: SvgPicture.asset(
-                                              "assets/icon/location.svg",
-                                              height: 16,
-                                            ),
-                                          ),
-                                          const Text(
-                                            "davtashen",
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                color: Color.fromRGBO(
-                                                    154, 154, 154, 1)),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(right: 14),
-                                      child: Row(
-                                        children: const [
-                                          Text("10:55",
-                                              style: TextStyle(
-                                                  fontSize: 14,
-                                                  color: Color.fromRGBO(
-                                                      154, 154, 154, 1))),
-                                          Text(" - ",
-                                              style: TextStyle(
-                                                  fontSize: 14,
-                                                  color: Color.fromRGBO(
-                                                      154, 154, 154, 1))),
-                                          Text("15:44",
-                                              style: TextStyle(
-                                                  fontSize: 14,
-                                                  color: Color.fromRGBO(
-                                                      154, 154, 154, 1))),
-                                        ],
-                                      ),
-                                    )
-                                  ],
-                                )),
+                            // Container(
+                            //     height: 46,
+                            //     child: Row(
+                            //       mainAxisAlignment:
+                            //           MainAxisAlignment.spaceBetween,
+                            //       children: [
+                            //         Padding(
+                            //           padding: const EdgeInsets.only(
+                            //             left: 16,
+                            //             right: 14,
+                            //           ),
+                            //           child: Row(
+                            //             children: [
+                            //               Padding(
+                            //                 padding:
+                            //                     const EdgeInsets.only(right: 6),
+                            //                 child: SvgPicture.asset(
+                            //                   "assets/icon/location.svg",
+                            //                   height: 16,
+                            //                 ),
+                            //               ),
+                            //               const Text(
+                            //                 "davtashen",
+                            //                 style: TextStyle(
+                            //                     fontSize: 14,
+                            //                     color: Color.fromRGBO(
+                            //                         154, 154, 154, 1)),
+                            //               )
+                            //             ],
+                            //           ),
+                            //         ),
+                            //         Padding(
+                            //           padding: const EdgeInsets.only(right: 14),
+                            //           child: Row(
+                            //             children: const [
+                            //               Text("10:55",
+                            //                   style: TextStyle(
+                            //                       fontSize: 14,
+                            //                       color: Color.fromRGBO(
+                            //                           154, 154, 154, 1))),
+                            //               Text(" - ",
+                            //                   style: TextStyle(
+                            //                       fontSize: 14,
+                            //                       color: Color.fromRGBO(
+                            //                           154, 154, 154, 1))),
+                            //               Text("15:44",
+                            //                   style: TextStyle(
+                            //                       fontSize: 14,
+                            //                       color: Color.fromRGBO(
+                            //                           154, 154, 154, 1))),
+                            //             ],
+                            //           ),
+                            //         )
+                            //       ],
+                            //     )),
                           ],
                         ),
                       ),

@@ -47,7 +47,7 @@ class aboutMoreState extends State<AboutMore> {
 
   bool pickTrue = false;
   String? status;
-  bool cancelPick = false;
+  bool cancelPick = true;
   bool missedBool = false;
   int id;
   bool? reason;
@@ -77,6 +77,9 @@ class aboutMoreState extends State<AboutMore> {
     if (status == "missed") {
       missedBool = true;
     }
+    // if (status == "unassigned") {
+    //   cancelPick = false;
+    // }
   }
 
   @override
@@ -107,11 +110,11 @@ class aboutMoreState extends State<AboutMore> {
             ), (route) => false);
           }
           if (state is QrCounterReasonFailure) {
-            ShowDialogs().show(context);
+            ShowDialogs().showFailure(context);
           }
         },
         child: BlocListener<ConfirmBloc, ConfirmState>(
-          listener: (context, state) {
+          listener: (cont, state) {
             if (state is ConfirmInitial) {
               print("confirm loading");
 
@@ -124,12 +127,55 @@ class aboutMoreState extends State<AboutMore> {
             if (state is ConfirmLoading) {
               print("confirm sucsses");
 
-              ShowDialogs().show(context);
+              showDialog(
+                  context: cont,
+                  builder: (context) {
+                    return AlertDialog(
+                        actions: [
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              primary: const Color.fromRGBO(159, 205, 79, 1),
+                              elevation: 0,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0)),
+                              minimumSize: const Size(100, 36), //////// HERE
+                            ),
+                            onPressed: () {
+                              Navigator.pushAndRemoveUntil(context,
+                                  MaterialPageRoute(
+                                builder: (context) {
+                                  return const MainScreen();
+                                },
+                              ), (route) => false);
+                            },
+                            child: const Text('Լավ',
+                                style: TextStyle(
+                                  fontFamily: 'Poppins',
+                                  color: Color.fromRGBO(255, 255, 255, 1),
+                                  fontSize: 16,
+                                )),
+                          ),
+                        ],
+                        shape: RoundedRectangleBorder(
+                          side: const BorderSide(
+                              color: Color.fromARGB(255, 144, 138, 137)),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        content: StatefulBuilder(
+                          builder: (context, setState) => Container(
+                            child: const Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(0, 0, 0, 1),
+                              child: Text("Գործընթացը հաջողվեց"),
+                            ),
+                          ),
+                        ));
+                  });
             }
             if (state is ConfirmFailure) {
               print("confirm felure");
 
-              ShowDialogs().show(context);
+              ShowDialogs().showFailure(context);
             }
           },
           child: Container(
@@ -555,6 +601,7 @@ class aboutMoreState extends State<AboutMore> {
                         padding: const EdgeInsets.only(left: 9.4),
                         child: Text(
                           '${order[index].customer_address}',
+
                           // overflow: TextOverflow.ellipsis,
                           //softWrap: true,
                           style: const TextStyle(

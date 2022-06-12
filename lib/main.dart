@@ -63,7 +63,7 @@ Future<void> main(List<String> args) async {
           AndroidFlutterLocalNotificationsPlugin>()
       ?.createNotificationChannel(channel);
   await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
-    alert: true, 
+    alert: true,
     badge: true,
     sound: true,
   );
@@ -81,7 +81,6 @@ Future<void> main(List<String> args) async {
             return AuthBloc();
           },
         ),
-        
       ],
       child: MyApp(
         userRepository: userRepository,
@@ -99,7 +98,7 @@ class MyApp extends StatelessWidget {
   const MyApp(
       {Key? key, required this.connectivity, required this.userRepository})
       : super(key: key);
-      
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider<InternetCubit>(

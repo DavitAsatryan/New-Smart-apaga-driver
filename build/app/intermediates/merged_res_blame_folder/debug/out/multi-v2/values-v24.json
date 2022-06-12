@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/home/dear/Desktop/flutter Apps/new_apaga/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-v24/values-v24.xml",
+            "outputFile": "/home/dave/Flutter Apps/new_apaga/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-v24/values-v24.xml",
             "map": [
                 {
-                    "source": "/home/dear/.gradle/caches/transforms-2/files-2.1/6ced094c760dfe4958eb948cca9b17f5/appcompat-1.3.0/res/values-v24/values-v24.xml",
+                    "source": "/home/dave/.gradle/caches/transforms-3/86a59924ea5590a9e2fdb68e12ea527c/transformed/appcompat-1.3.0/res/values-v24/values-v24.xml",
                     "from": {
                         "startLines": "2,3",
                         "startColumns": "4,4",
@@ -14,7 +14,7 @@
                     }
                 },
                 {
-                    "source": "/home/dear/.gradle/caches/transforms-2/files-2.1/b28daf565b222a20a229120778e5238e/media-1.1.0/res/values-v24/values-v24.xml",
+                    "source": "/home/dave/.gradle/caches/transforms-3/72514791e640a6b8a4b366e0edcfb496/transformed/media-1.1.0/res/values-v24/values-v24.xml",
                     "from": {
                         "startLines": "2,3,4,5",
                         "startColumns": "4,4,4,4",

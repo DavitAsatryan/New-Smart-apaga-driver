@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/home/dear/Desktop/flutter Apps/new_apaga/build/flutter_plugin_android_lifecycle/intermediates/res/merged/debug/values-ta/values-ta.xml",
+            "outputFile": "/home/dave/Flutter Apps/new_apaga/build/flutter_plugin_android_lifecycle/intermediates/incremental/mergeDebugResources/merged.dir/values-ta/values-ta.xml",
             "map": [
                 {
-                    "source": "/home/dear/.gradle/caches/transforms-2/files-2.1/af76990d3d6bef6e40e94314fb3bdfdb/core-1.1.0/res/values-ta/values-ta.xml",
+                    "source": "/home/dave/.gradle/caches/transforms-3/3d539e2cd8e3ed292a2d160790075033/transformed/core-1.6.0/res/values-ta/values-ta.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -16,10 +16,10 @@
             ]
         },
         {
-            "outputFile": "/home/dear/Desktop/flutter Apps/new_apaga/build/flutter_plugin_android_lifecycle/intermediates/incremental/mergeDebugResources/merged.dir/values-ta/values-ta.xml",
+            "outputFile": "/home/dave/Flutter Apps/new_apaga/build/flutter_plugin_android_lifecycle/intermediates/merged_res/debug/values-ta/values-ta.xml",
             "map": [
                 {
-                    "source": "/home/dear/.gradle/caches/transforms-2/files-2.1/af76990d3d6bef6e40e94314fb3bdfdb/core-1.1.0/res/values-ta/values-ta.xml",
+                    "source": "/home/dave/.gradle/caches/transforms-3/3d539e2cd8e3ed292a2d160790075033/transformed/core-1.6.0/res/values-ta/values-ta.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

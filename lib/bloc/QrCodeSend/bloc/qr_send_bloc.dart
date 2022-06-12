@@ -16,8 +16,8 @@ class QrSendBloc extends Bloc<QrSendEvent, QrSendState> {
         emit(QrSendLoading());
         try {
           var token = await FlutterSession().get("token");
-          final qrSendCode = await userRepository.qrCodeSend(
-              QrCodeSendModel(qrCode: event.qrSendCode, id: event.id));
+          final qrSendCode = await userRepository.qrCodeSend(QrCodeSendModel(
+              qrCode: event.qrSendCode, id: event.id.toString()));
           //authenticationBloc.add(LoggedIn(token: token));
           emit(QrSendInitial());
         } catch (error) {
