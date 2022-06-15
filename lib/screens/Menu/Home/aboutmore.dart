@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:map_launcher/map_launcher.dart';
 import 'package:new_apaga/bloc/Auth_Bloc/bloc/auth_bloc.dart';
 import 'package:new_apaga/bloc/QRCounterAndReason/bloc/qr_counter_reason_bloc.dart';
 import 'package:new_apaga/bloc/QrCodeSend/bloc/qr_send_bloc.dart';
@@ -27,6 +28,57 @@ class AboutMore extends StatefulWidget {
 
 class aboutMoreState extends State<AboutMore> {
   var blocSee;
+
+  void shareToMap(dynamic lat, dynamic long) async {
+    try {
+      final availableMaps = await MapLauncher.installedMaps;
+
+      await availableMaps.first
+          .showMarker(coords: Coords(lat, long), title: "", zoom: 20);
+    } catch (e) {
+      showDialog(
+          barrierDismissible: false,
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+                actions: [
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: const Color.fromRGBO(159, 205, 79, 1),
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0)),
+                      minimumSize: const Size(100, 36), //////// HERE
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text('Լավ',
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          color: Color.fromRGBO(255, 255, 255, 1),
+                          fontSize: 16,
+                        )),
+                  ),
+                ],
+                shape: RoundedRectangleBorder(
+                  side: const BorderSide(
+                      color: Color.fromARGB(255, 144, 138, 137)),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                content: StatefulBuilder(
+                  builder: (context, setState) => Container(
+                    child: const Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 1),
+                      child: Text(
+                          "Հասցեի խնդրի պատճառով այս պահին անհնար կլինի մուտք գործել քարտեզ:"),
+                    ),
+                  ),
+                ));
+          }).then((value) => null);
+    }
+  }
+
   _onQRCounterAndReasonButtonPressed(String status) {
     print(" heyyy   ${_controller.text} $id  $text");
     BlocProvider.of<QrCounterReasonBloc>(context).add(
@@ -87,10 +139,23 @@ class aboutMoreState extends State<AboutMore> {
     return aboutMetod();
   }
 
+  String latitude = "";
+  String longitude = "";
+
   Scaffold aboutMetod() {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(12, 128, 64, 1),
+        actions: [
+          IconButton(
+              onPressed: () {
+                shareToMap(latitude, longitude);
+              },
+              icon: const Icon(
+                Icons.location_on,
+                color: Colors.white,
+              ))
+        ],
       ),
       body: BlocListener<QrCounterReasonBloc, QrCounterReasonState>(
         listener: (context, state) {
@@ -241,6 +306,10 @@ class aboutMoreState extends State<AboutMore> {
     if (order[index].floor == null) {
       order[index].floor == "";
     }
+
+    // latitude = order[index].latitude;
+    // longitude = order[index].longitude;
+
     return Padding(
       padding: const EdgeInsets.only(left: 16, right: 16),
       child: Container(

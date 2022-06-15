@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:map_launcher/map_launcher.dart';
 import 'package:new_apaga/Cubit/Internet/cubit/internet_cubit.dart';
 import 'package:new_apaga/Enum/internetEnum.dart';
 import 'package:new_apaga/bloc/ForgetPassword_Bloc/bloc/forget_password_bloc.dart';
@@ -19,6 +20,7 @@ import '/bloc/Login_bloc/login_bloc.dart';
 import '/bloc/profileEdit_send/Password_Bloc/bloc/password_change_bloc.dart';
 import '/repository.dart';
 import 'Forget_Password/forget_password.dart';
+import 'package:flutter_share/flutter_share.dart';
 
 class LoginForm extends StatefulWidget {
   final AuthBloc auth;
@@ -542,21 +544,15 @@ class LoginFormState extends State<LoginForm> {
                                                   minimumSize: const Size(
                                                       160, 40), //////// HERE
                                                 ),
-                                                onPressed: () {
+                                                onPressed: () async {
                                                   FocusManager
                                                       .instance.primaryFocus
                                                       ?.unfocus();
+
+                                               
+                                                
                                                   _onLoginButtonPressed();
-                                                  // FirebaseMessaging.instance
-                                                  //     .getToken()
-                                                  //     .then((value) {
-                                                  //   print("FCM token");
-                                                  //   print(value);
-                                                  // });
-                                                  // final prefer = await SharedPreferences
-                                                  //     .getInstance();
-                                                  // prefer.getString('phone');
-                                                  // print(prefer.containsKey('phone'));
+
                                                 },
                                                 child: const Text(
                                                   'Մուտք',

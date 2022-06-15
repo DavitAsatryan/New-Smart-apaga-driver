@@ -142,6 +142,10 @@ flutter_session
 2.7
 file:///home/dave/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_session-0.1.1/
 file:///home/dave/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_session-0.1.1/lib/
+flutter_share
+2.12
+file:///home/dave/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_share-2.0.0/
+file:///home/dave/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_share-2.0.0/lib/
 flutter_svg
 2.12
 file:///home/dave/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_svg-1.0.3/
@@ -182,6 +186,10 @@ lints
 2.12
 file:///home/dave/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/lints-1.0.1/
 file:///home/dave/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/lints-1.0.1/lib/
+map_launcher
+2.12
+file:///home/dave/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/map_launcher-2.2.3/
+file:///home/dave/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/map_launcher-2.2.3/lib/
 mask_text_input_formatter
 2.12
 file:///home/dave/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/mask_text_input_formatter-2.3.0/
