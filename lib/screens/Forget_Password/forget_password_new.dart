@@ -75,11 +75,12 @@ class _ForgetPasswordState extends State<ForgetPasswordNew> {
         ), (route) => false);
       } else if (state is ForgetPasswordNewFailure) {
         showDialog(
+          barrierDismissible: false,
             // barrierColor: const Color.fromARGB(218, 226, 222, 211),
             context: context,
             builder: (context) {
               return alert(okButton, textDialog);
-            });
+            }).then((value) => null);
       }
     }, child: BlocBuilder<ForgetPasswordNewBloc, ForgetPasswordNewState>(
       builder: (context, state) {

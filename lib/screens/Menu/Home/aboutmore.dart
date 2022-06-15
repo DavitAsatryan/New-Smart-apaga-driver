@@ -110,7 +110,7 @@ class aboutMoreState extends State<AboutMore> {
             ), (route) => false);
           }
           if (state is QrCounterReasonFailure) {
-            ShowDialogs().showFailure(context);
+            ShowDialogs().showFailure(context).then((value) => null);
           }
         },
         child: BlocListener<ConfirmBloc, ConfirmState>(
@@ -128,6 +128,7 @@ class aboutMoreState extends State<AboutMore> {
               print("confirm sucsses");
 
               showDialog(
+                  barrierDismissible: false,
                   context: cont,
                   builder: (context) {
                     return AlertDialog(
@@ -170,12 +171,12 @@ class aboutMoreState extends State<AboutMore> {
                             ),
                           ),
                         ));
-                  });
+                  }).then((value) => null);
             }
             if (state is ConfirmFailure) {
               print("confirm felure");
 
-              ShowDialogs().showFailure(context);
+              ShowDialogs().showFailure(context).then((value) => null);
             }
           },
           child: Container(
@@ -685,6 +686,7 @@ class aboutMoreState extends State<AboutMore> {
                               onPressed: () {
                                 if (status == "assigned") {
                                   showDialog(
+                                      barrierDismissible: false,
                                       barrierColor: Colors.transparent,
                                       context: context,
                                       builder: (context) {

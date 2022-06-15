@@ -96,10 +96,11 @@ class _ForgetPasswordState extends State<ForgetPasswordPinCode> {
             textDialog = "Սխալ կոդ";
           }
           showDialog(
+            barrierDismissible: false,
               context: context,
               builder: (context) {
                 return alert(okButton, textDialog);
-              });
+              }).then((value) => null);
         }
       },
       child: BlocBuilder<PincodeForgetPassBloc, PincodeForgetPassState>(

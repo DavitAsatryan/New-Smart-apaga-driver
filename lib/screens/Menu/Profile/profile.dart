@@ -232,7 +232,7 @@ class _ProfileState extends State<Profile> {
               headers: {'auth-token': '$token'}));
       print(response.statusCode);
       if (response.statusCode == 200) {
-        ShowDialogs().show(context, false);
+        ShowDialogs().show(context, false).then((value) => null);
       }
     } catch (e) {
       String exeption = "Սխալ";
@@ -247,6 +247,7 @@ class _ProfileState extends State<Profile> {
       }
 
       showDialog(
+        barrierDismissible: false,
         context: context,
         builder: (context) {
           return AlertDialog(
@@ -284,7 +285,7 @@ class _ProfileState extends State<Profile> {
                 ),
               ));
         },
-      );
+      ).then((value) => null);
     }
 
     // return response.data;
@@ -733,11 +734,11 @@ class _ProfileState extends State<Profile> {
       listener: (context, state) {
         if (state is PasswordChangeFailure) {
           FocusManager.instance.primaryFocus?.unfocus();
-          ShowDialogs().showFailure(context);
+          ShowDialogs().showFailure(context).then((value) => null);
         }
         if (state is PasswordChangeInitial) {
           FocusManager.instance.primaryFocus?.unfocus();
-          ShowDialogs().show(context, false);
+          ShowDialogs().show(context, false).then((value) => null);
         }
       },
       child: Scaffold(
@@ -753,6 +754,7 @@ class _ProfileState extends State<Profile> {
             }
             FocusManager.instance.primaryFocus?.unfocus();
             showDialog(
+              barrierDismissible: false,
               context: context,
               builder: (context) {
                 return AlertDialog(
@@ -791,7 +793,7 @@ class _ProfileState extends State<Profile> {
                       ),
                     ));
               },
-            );
+            ).then((value) => null);
           }
           if (state is ProfileEditInitial) {
             Container(
@@ -2042,6 +2044,8 @@ class _ProfileState extends State<Profile> {
                                                           ),
                                                           onPressed: () {
                                                             showDialog(
+                                                                barrierDismissible:
+                                                                    false,
                                                                 barrierColor:
                                                                     const Color
                                                                             .fromARGB(
@@ -2062,7 +2066,7 @@ class _ProfileState extends State<Profile> {
                                                                     child:
                                                                         alert,
                                                                   );
-                                                                });
+                                                                }).then((value) => null);
                                                           },
                                                         )),
                                                   ],

@@ -149,11 +149,12 @@ class LoginFormState extends State<LoginForm> {
                 "Հեռախոսահամարն ակտիվ չէ: Խնդրում ենք սպասել մինչ ադմինը կապ կհաստատի ձեզ հետ:";
           }
           showDialog(
+              barrierDismissible: false,
               // barrierColor: const Color.fromARGB(218, 226, 222, 211),
               context: context,
               builder: (context) {
                 return alert(okButton, textDialog);
-              });
+              }).then((value) => null);
         }
       },
       child: BlocBuilder<LoginBloc, LoginState>(
@@ -323,7 +324,7 @@ class LoginFormState extends State<LoginForm> {
                                                       LengthLimitingTextInputFormatter(
                                                           20)
                                                     ],
-                                                    
+
                                                     //maxLengthEnforced: true,
                                                     validator: (value) {
                                                       Pattern password =

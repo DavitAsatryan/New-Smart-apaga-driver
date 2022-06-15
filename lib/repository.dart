@@ -278,6 +278,7 @@ class UserRepository {
       await refreshToken(rToken);
       return qrCodeSend(qrCodeSendModel);
     } else {
+      exeptionText = body.toString();
       throw Exception(json.decode(response.body));
     }
   }

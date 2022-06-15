@@ -81,6 +81,7 @@ class MyPickUpState extends State<MyPickUp> {
 
   Future<dynamic> filtr(BuildContext cotext) {
     return showDialog(
+        barrierDismissible: false,
         barrierColor: Colors.transparent,
         context: cotext,
         builder: (cotext) {

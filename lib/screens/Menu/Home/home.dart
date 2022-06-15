@@ -257,12 +257,12 @@ class HomeState extends State<Home> {
                                   ),
                                 ),
                               ));
-                        });
+                        }).then((value) => null);
                   }
                   if (state is ConfirmFailure) {
                     print("confirm felure");
 
-                    ShowDialogs().showFailure(context);
+                    ShowDialogs().showFailure(context).then((value) => null);
                   }
                 },
                 // child: BlocListener<SeeMoreBloc, SeeMoreState>(

@@ -201,11 +201,12 @@ class _RegisterFormState extends State<RegisterForm> {
         if (state is RegisterInitial) {
           toLoginScreen = true;
           showDialog(
+              barrierDismissible: false,
               barrierColor: const Color.fromRGBO(85, 82, 75, 1),
               context: context,
               builder: (context) {
                 return alertDialogMetod(okButton, text);
-              });
+              }).then((value) => null);
         }
         if (state is RegisterFailure) {
           String textError = UserRepository.exeptionText;
@@ -216,11 +217,12 @@ class _RegisterFormState extends State<RegisterForm> {
             textInvalid = "Մեքենաի համարն արդեն գրանցված է";
           }
           showDialog(
+            barrierDismissible: false,
               barrierColor: const Color.fromARGB(85, 82, 75, 1),
               context: context,
               builder: (context) {
                 return alertDialogMetod(okButton, textInvalid);
-              });
+              }).then((value) => null);
         }
         //  if (state is ) {
         //   Scaffold.of(context).showSnackBar(
@@ -1185,7 +1187,7 @@ class _RegisterFormState extends State<RegisterForm> {
                                               LengthLimitingTextInputFormatter(
                                                   20)
                                             ],
-                                           // maxLengthEnforced: true,
+                                            // maxLengthEnforced: true,
                                             validator: (value) {
                                               Pattern password =
                                                   r'[A-Z,a-z,0-9(]{6}';

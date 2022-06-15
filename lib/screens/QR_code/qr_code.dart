@@ -28,6 +28,7 @@ class QrCode extends StatefulWidget {
 class _QrCodeState extends State<QrCode> {
   int id;
   bool hide;
+  String textDialog = "Սխալ";
   _QrCodeState({required this.id, required this.hide});
   final qrKey = GlobalKey(debugLabel: "QR");
   QRViewController? controller;
@@ -71,6 +72,31 @@ class _QrCodeState extends State<QrCode> {
 
   @override
   Widget build(BuildContext context) {
+    Widget okButton = TextButton(
+      child: Container(
+        width: double.infinity,
+        height: 40,
+        decoration: const BoxDecoration(
+            border: Border(
+          top:
+              BorderSide(width: 1.0, color: Color.fromARGB(255, 229, 238, 243)),
+        )),
+        child: const Center(
+          child: Text(
+            "Լավ",
+            style: TextStyle(
+              fontFamily: 'Poppins',
+              color: Color.fromARGB(202, 150, 179, 47),
+              fontSize: 15,
+            ),
+          ),
+        ),
+      ),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
+    AlertDialog alerts = alert(okButton, textDialog);
     return BlocListener<QrSendBloc, QrSendState>(
       listener: (context, state) {
         if (state is QrSendLoading) {
@@ -83,7 +109,21 @@ class _QrCodeState extends State<QrCode> {
         if (state is QrSendFailure) {
           print(state.error);
           counter--;
-          ShowDialogs().showFailure(context);
+          print(UserRepository.exeptionText);
+          if (UserRepository.exeptionText ==
+              '{message: bag is not collected maybe it already collected}') {
+            textDialog = 'Այն արդեն վերցված է';
+          } else {
+            textDialog = 'Նորից փորձեք';
+          }
+
+          showDialog(
+              barrierDismissible: false,
+              context: context,
+              builder: (context) {
+                return alert(okButton, textDialog);
+              }).then((value) => null);
+          // ShowDialogs().showFailure(context).then((value) => null);
         }
         if (state is QrSendInitial) {
           for (var i = 0; i < resultList.length; i++) {
@@ -93,11 +133,8 @@ class _QrCodeState extends State<QrCode> {
               return null;
             }
           }
-          print(resultList);
-          print(resultList.length);
 
-          print("QR ok");
-          ShowDialogs().show(context, false);
+          ShowDialogs().show(context, false).then((value) => null);
         }
       },
       child: BlocBuilder<QrSendBloc, QrSendState>(
@@ -228,11 +265,20 @@ class _QrCodeState extends State<QrCode> {
               hideChack = false;
               iconChange = true;
               counter++;
-              resultList.add(barcode!.code.toString());
-              print("result $resultList");
             }
           });
         }));
     setState(() => this.controller = controller);
+  }
+
+  AlertDialog alert(Widget okButton, String text) {
+    return AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        actions: [okButton],
+        content: Text(
+          textDialog,
+        ));
   }
 }

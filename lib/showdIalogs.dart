@@ -9,6 +9,7 @@ import 'package:new_apaga/repository.dart';
 class ShowDialogs {
   Future<dynamic> show(BuildContext context, bool click) {
     return showDialog(
+        barrierDismissible: false,
         context: context,
         builder: (contex) {
           return AlertDialog(
@@ -55,11 +56,12 @@ class ShowDialogs {
                   ),
                 ),
               ));
-        });
+        }).then((value) => null);
   }
 
   Future<dynamic> showFailure(BuildContext context) {
     return showDialog(
+      barrierDismissible: false,
       context: context,
       builder: (context) {
         return AlertDialog(
@@ -101,6 +103,6 @@ class ShowDialogs {
               ),
             ));
       },
-    );
+    ).then((value) => null);
   }
 }
