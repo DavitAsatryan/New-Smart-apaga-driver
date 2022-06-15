@@ -44,7 +44,7 @@ class HomeState extends State<Home> {
   List section = [
     "Աջափնյակ",
     "Արաբկիր",
-    "Lennakan",
+    "Ավան",
     "Դավիթաշեն",
     "Էրեբունի",
     "Քանաքեռ-Զեյթուն",
@@ -214,6 +214,7 @@ class HomeState extends State<Home> {
                     print("confirm sucsses");
 
                     showDialog(
+                        barrierDismissible: false,
                         context: cont,
                         builder: (context) {
                           return AlertDialog(

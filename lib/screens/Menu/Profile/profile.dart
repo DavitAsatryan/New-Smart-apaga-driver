@@ -332,78 +332,78 @@ class _ProfileState extends State<Profile> {
   //       .showSnackBar(new SnackBar(content: new Text(msg)));
   // }
 
-  Widget buildsheet() => Padding(
-        padding: const EdgeInsets.only(left: 16, right: 16),
-        child: Container(
-          width: double.infinity,
-          height: 234,
-          decoration: const BoxDecoration(color: Color.fromRGBO(38, 38, 38, 1)),
-          child: Column(
-            children: [
-              Container(
-                width: double.infinity,
-                height: 79,
-                decoration: const BoxDecoration(
-                    color: Color.fromRGBO(255, 255, 255, 1),
-                    borderRadius: BorderRadius.all(Radius.circular(8))),
-                child: Column(
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.only(
-                        top: 10,
-                      ),
-                      child: Text(
-                        "Ցանկանու՞մ եք ջնջել էջը",
-                        style: TextStyle(
-                            color: Color.fromRGBO(112, 112, 112, 1),
-                            fontSize: 14),
-                      ),
-                    ),
-                    TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                          //deleteProfile();
-                        },
-                        child: const Text("Ջնջել",
-                            style: TextStyle(
-                                color: Color.fromRGBO(255, 53, 53, 1),
-                                fontSize: 18)))
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 13),
-                child: Container(
-                    width: double.infinity,
-                    height: 39,
-                    decoration: const BoxDecoration(
-                        color: Color.fromRGBO(255, 255, 255, 1),
-                        borderRadius: BorderRadius.all(Radius.circular(8))),
-                    child: TextButton(
-                      child: const Text(
-                        "Չեղարկել",
-                        style: TextStyle(
-                            color: Color.fromRGBO(12, 128, 64, 1),
-                            fontSize: 18),
-                      ),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                    )),
-              ),
-            ],
-          ),
-        ),
-      );
-  Future<dynamic> showModalDeleteDialog(BuildContext context) {
-    return showModalBottomSheet(
-      elevation: 0,
-      barrierColor: const Color.fromRGBO(38, 38, 38, 1),
-      backgroundColor: Colors.transparent,
-      context: context,
-      builder: (context) => buildsheet(),
-    );
-  }
+  // Widget buildsheet() => Padding(
+  //       padding: const EdgeInsets.only(left: 16, right: 16),
+  //       child: Container(
+  //         width: double.infinity,
+  //         height: 234,
+  //         decoration: const BoxDecoration(color: Color.fromRGBO(38, 38, 38, 1)),
+  //         child: Column(
+  //           children: [
+  //             Container(
+  //               width: double.infinity,
+  //               height: 79,
+  //               decoration: const BoxDecoration(
+  //                   color: Color.fromRGBO(255, 255, 255, 1),
+  //                   borderRadius: BorderRadius.all(Radius.circular(8))),
+  //               child: Column(
+  //                 children: [
+  //                   const Padding(
+  //                     padding: EdgeInsets.only(
+  //                       top: 10,
+  //                     ),
+  //                     child: Text(
+  //                       "Ցանկանու՞մ եք ջնջել էջը",
+  //                       style: TextStyle(
+  //                           color: Color.fromRGBO(112, 112, 112, 1),
+  //                           fontSize: 14),
+  //                     ),
+  //                   ),
+  //                   TextButton(
+  //                       onPressed: () {
+  //                         Navigator.of(context).pop();
+  //                         //deleteProfile();
+  //                       },
+  //                       child: const Text("Ջնջել",
+  //                           style: TextStyle(
+  //                               color: Color.fromRGBO(255, 53, 53, 1),
+  //                               fontSize: 18)))
+  //                 ],
+  //               ),
+  //             ),
+  //             Padding(
+  //               padding: const EdgeInsets.only(top: 13),
+  //               child: Container(
+  //                   width: double.infinity,
+  //                   height: 39,
+  //                   decoration: const BoxDecoration(
+  //                       color: Color.fromRGBO(255, 255, 255, 1),
+  //                       borderRadius: BorderRadius.all(Radius.circular(8))),
+  //                   child: TextButton(
+  //                     child: const Text(
+  //                       "Չեղարկել",
+  //                       style: TextStyle(
+  //                           color: Color.fromRGBO(12, 128, 64, 1),
+  //                           fontSize: 18),
+  //                     ),
+  //                     onPressed: () {
+  //                       Navigator.of(context).pop();
+  //                     },
+  //                   )),
+  //             ),
+  //           ],
+  //         ),
+  //       ),
+  //     );
+  // Future<dynamic> showModalDeleteDialog(BuildContext context) {
+  //   return showModalBottomSheet(
+  //     elevation: 0,
+  //     barrierColor: const Color.fromRGBO(38, 38, 38, 1),
+  //     backgroundColor: Colors.transparent,
+  //     context: context,
+  //     builder: (context) => buildsheet(),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -2079,51 +2079,51 @@ class _ProfileState extends State<Profile> {
                                               mainAxisAlignment:
                                                   MainAxisAlignment.spaceAround,
                                               children: [
-                                                Padding(
-                                                    padding:
-                                                        const EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                            0, 0, 0, 31),
-                                                    child: ElevatedButton(
-                                                      style: ElevatedButton
-                                                          .styleFrom(
-                                                        primary: const Color
-                                                                .fromRGBO(
-                                                            247, 247, 247, 1),
-                                                        elevation: 0,
-                                                        shape: RoundedRectangleBorder(
-                                                            side: const BorderSide(
-                                                                color: Color
-                                                                    .fromRGBO(
-                                                                        159,
-                                                                        205,
-                                                                        79,
-                                                                        1)),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        10.0)),
-                                                        minimumSize:
-                                                            const Size(151, 36),
-                                                      ),
-                                                      onPressed: () {
-                                                        showModalDeleteDialog(
-                                                            context);
-                                                      },
-                                                      child: const Text(
-                                                          'Ջնջել էջը',
-                                                          style: TextStyle(
-                                                            fontFamily:
-                                                                'Poppins',
-                                                            color:
-                                                                Color.fromRGBO(
-                                                                    159,
-                                                                    205,
-                                                                    79,
-                                                                    1),
-                                                            fontSize: 16,
-                                                          )),
-                                                    )),
+                                                // Padding(
+                                                //     padding:
+                                                //         const EdgeInsetsDirectional
+                                                //                 .fromSTEB(
+                                                //             0, 0, 0, 31),
+                                                //     child: ElevatedButton(
+                                                //       style: ElevatedButton
+                                                //           .styleFrom(
+                                                //         primary: const Color
+                                                //                 .fromRGBO(
+                                                //             247, 247, 247, 1),
+                                                //         elevation: 0,
+                                                //         shape: RoundedRectangleBorder(
+                                                //             side: const BorderSide(
+                                                //                 color: Color
+                                                //                     .fromRGBO(
+                                                //                         159,
+                                                //                         205,
+                                                //                         79,
+                                                //                         1)),
+                                                //             borderRadius:
+                                                //                 BorderRadius
+                                                //                     .circular(
+                                                //                         10.0)),
+                                                //         minimumSize:
+                                                //             const Size(151, 36),
+                                                //       ),
+                                                //       onPressed: () {
+                                                //         showModalDeleteDialog(
+                                                //             context);
+                                                //       },
+                                                //       child: const Text(
+                                                //           'Ջնջել էջը',
+                                                //           style: TextStyle(
+                                                //             fontFamily:
+                                                //                 'Poppins',
+                                                //             color:
+                                                //                 Color.fromRGBO(
+                                                //                     159,
+                                                //                     205,
+                                                //                     79,
+                                                //                     1),
+                                                //             fontSize: 16,
+                                                //           )),
+                                                //     )),
                                                 Padding(
                                                     padding:
                                                         const EdgeInsetsDirectional

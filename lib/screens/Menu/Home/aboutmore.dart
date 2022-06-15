@@ -229,6 +229,18 @@ class aboutMoreState extends State<AboutMore> {
     if (order[index].comment_customer == null) {
       order[index].comment_customer = "";
     }
+    if (order[index].building == null) {
+      order[index].building == "";
+    }
+    if (order[index].apartment == null) {
+      order[index].apartment == "";
+    }
+    if (order[index].entrance == null) {
+      order[index].entrance == "";
+    }
+    if (order[index].floor == null) {
+      order[index].floor == "";
+    }
     return Padding(
       padding: const EdgeInsets.only(left: 16, right: 16),
       child: Container(
@@ -590,7 +602,7 @@ class aboutMoreState extends State<AboutMore> {
             ),
             Container(
               width: MediaQuery.of(context).size.width,
-              height: 111,
+              height: 140,
               child: Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 17),
                 child: Row(
@@ -601,7 +613,7 @@ class aboutMoreState extends State<AboutMore> {
                       child: Padding(
                         padding: const EdgeInsets.only(left: 9.4),
                         child: Text(
-                          '${order[index].customer_address}',
+                          '${order[index].customer_address} \nՇենք ${order[index].building} \nԲնակարան ${order[index].apartment} \nՄուտք ${order[index].entrance} \nՀարկ ${order[index].floor}',
 
                           // overflow: TextOverflow.ellipsis,
                           //softWrap: true,

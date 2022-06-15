@@ -775,6 +775,12 @@ class OrderModel {
   String? phoneNumber;
   String? customerAddress;
   dynamic customer_address;
+
+  String? building;
+  String? apartment;
+  String? entrance;
+  String? floor;
+
   int? customer_id;
   int? address_id;
   String? comment_customer;
@@ -799,6 +805,10 @@ class OrderModel {
       required this.lastname,
       required this.phoneNumber,
       required this.customer_address,
+      required this.building,
+      required this.apartment,
+      required this.entrance,
+      required this.floor,
       required this.comment_customer,
       required this.quantity,
       required this.price,
@@ -832,7 +842,10 @@ class OrderModel {
     address_id = json['address_id'];
     comment_customer = json['comment_customer'];
     customer_address = json['address']['customer_address'];
-    print(customer_address);
+    building = json['address']['building'];
+    apartment = json['address']['apartment'];
+    entrance = json['address']['entrance'];
+    floor = json['address']['floor'];
     if (json['Pickup_bags'] != null) {
       waste_type = [];
       for (var element in (json['Pickup_bags'] as List)) {
@@ -883,16 +896,6 @@ class OrderModel {
   //   //   return data;
   //   // }
   // }
-}
-
-class Address {
-  String? customer_address;
-  Address({required this.customer_address});
-  Address.fromJson(Map<String, dynamic> json) {
-    customer_address:
-    json["customer_address"];
-    print(json["customer_address"]);
-  }
 }
 
 class OrderGettingModel {

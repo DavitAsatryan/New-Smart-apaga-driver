@@ -51,7 +51,7 @@ class MyPickUpState extends State<MyPickUp> {
   List section = [
     "Աջափնյակ",
     "Արաբկիր",
-    "Lennakan",
+    "Ավան",
     "Դավիթաշեն",
     "Էրեբունի",
     "Քանաքեռ-Զեյթուն",
