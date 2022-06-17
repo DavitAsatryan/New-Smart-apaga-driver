@@ -780,8 +780,8 @@ class OrderModel {
   String? apartment;
   String? entrance;
   String? floor;
-  dynamic latitude;
-  dynamic longitude;
+  String? coordinateType;
+  List? coordinates;
   int? customer_id;
   int? address_id;
   String? comment_customer;
@@ -810,8 +810,8 @@ class OrderModel {
       required this.apartment,
       required this.entrance,
       required this.floor,
-      required this.latitude,
-      required this.longitude,
+      required this.coordinateType,
+      required this.coordinates,
       required this.comment_customer,
       required this.quantity,
       required this.price,
@@ -849,8 +849,14 @@ class OrderModel {
     apartment = json['address']['apartment'];
     entrance = json['address']['entrance'];
     floor = json['address']['floor'];
-//latitude = json['latitude'];
-//longitude = json['longitude'];
+    coordinateType = json['address']['coordinate']['type'];
+    if (json['address']['coordinate']['coordinates'] != null) {
+      coordinates = [];
+      for (var element
+          in (json['address']['coordinate']['coordinates'] as List)) {
+        coordinates!.add(element);
+      }
+    }
 
     if (json['Pickup_bags'] != null) {
       waste_type = [];

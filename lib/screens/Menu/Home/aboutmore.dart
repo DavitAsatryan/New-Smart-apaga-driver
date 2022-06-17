@@ -139,8 +139,8 @@ class aboutMoreState extends State<AboutMore> {
     return aboutMetod();
   }
 
-  String latitude = "";
-  String longitude = "";
+  dynamic latitude = "";
+  dynamic longitude = "";
 
   Scaffold aboutMetod() {
     return Scaffold(
@@ -307,8 +307,8 @@ class aboutMoreState extends State<AboutMore> {
       order[index].floor == "";
     }
 
-    // latitude = order[index].latitude;
-    // longitude = order[index].longitude;
+    latitude = order[index].coordinates[0];
+    longitude = order[index].coordinates[1];
 
     return Padding(
       padding: const EdgeInsets.only(left: 16, right: 16),
